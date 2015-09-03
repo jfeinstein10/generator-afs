@@ -1,0 +1,6 @@
+{
+  "directory": "static/bower_components",
+  "storage": {
+    "packages": ".bower-cache"
+  }
+}
