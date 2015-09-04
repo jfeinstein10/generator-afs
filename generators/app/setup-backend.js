@@ -3,7 +3,10 @@
 module.exports = function(generator) {
 
   generator.writing.backend = function() {
-    this.fs.write(this.destinationPath('__init__.py'), '');
+    this.fs.copy(
+      this.templatePath('__init__.py'),
+      this.destinationPath('__init__.py')
+    );
     this.fs.copy(
       this.templatePath('app.py'),
       this.destinationPath('app.py')
@@ -17,15 +20,24 @@ module.exports = function(generator) {
       this.destinationPath('environment.py')
     );
 
-    this.fs.write(this.destinationPath('models/__init__.py'), '');
+    this.fs.copy(
+      this.templatePath('__init__.py'),
+      this.destinationPath('models/__init__.py')
+    );
     this.fs.copy(
       this.templatePath('models.py'),
       this.destinationPath('models/models.py')
     );
 
-    this.fs.write(this.destinationPath('scripts/__init__.py'), '');
+    this.fs.copy(
+      this.templatePath('__init__.py'),
+      this.destinationPath('scripts/__init__.py')
+    );
 
-    this.fs.write(this.destinationPath('controllers/__init__.py'), '');
+    this.fs.copy(
+      this.templatePath('__init__.py'),
+      this.destinationPath('controllers/__init__.py')
+    );
     this.fs.copy(
       this.templatePath('authentication.py'),
       this.destinationPath('controllers/authentication.py')

@@ -1,4 +1,5 @@
 flask
 flask-login
+Flask-Assets
 sqlalchemy
 sqlalchemy-migrate

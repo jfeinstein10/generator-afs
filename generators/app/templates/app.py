@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask, render_template, send_file
-from flask.ext.login import login_required
 from flask.ext.assets import Environment
 
 
@@ -17,3 +16,6 @@ assets.config['STATIC_URL_PATH'] = app.static_url_path
 def static_files(path):
     return send_file('static/{0}'.format(path))
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
