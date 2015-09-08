@@ -10,10 +10,7 @@ module.exports = function(generator) {
       this
     );
 
-    this.fs.copy(
-      this.templatePath('__init__.py'),
-      this.destinationPath('__init__.py')
-    );
+    this.fs.write(this.destinationPath('__init__.py'), '');
     this.fs.copyTpl(
       this.templatePath('_app.py'),
       this.destinationPath('app.py'),
@@ -28,19 +25,13 @@ module.exports = function(generator) {
       this.destinationPath('environment.py')
     );
 
-    this.fs.copy(
-      this.templatePath('__init__.py'),
-      this.destinationPath('models/__init__.py')
-    );
+    this.fs.write(this.destinationPath('models/__init__.py'), '');
     this.fs.copy(
       this.templatePath('models.py'),
       this.destinationPath('models/models.py')
     );
 
-    this.fs.copy(
-      this.templatePath('__init__.py'),
-      this.destinationPath('scripts/__init__.py')
-    );
+    this.fs.write(this.destinationPath('scripts/__init__.py'), '');
 
     this.fs.copy(
       this.templatePath('__init__.py'),

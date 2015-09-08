@@ -27,20 +27,25 @@ module.exports = function(generator) {
         ];
         switch (answers.cssFramework) {
           case 'Bootstrap':
+            this.frontendProps.mainHtmlPath = this.templatePath('_main.bootstrap.html');
             angularModules = angularModules.concat([
               "'ui.bootstrap'"
             ]);
             break;
           case 'Foundation':
+            this.frontendProps.mainHtmlPath = this.templatePath('_main.foundation.html');
             angularModules = angularModules.concat([
               "'mm.foundation'"
             ]);
             break;
           case 'Angular Material':
+            this.frontendProps.mainHtmlPath = this.templatePath('_main.material.html');
             angularModules = angularModules.concat([
               "'ngMaterial'"
             ]);
             break;
+          default:
+            this.frontendProps.mainHtmlPath = this.templatePath('_main.html');
         }
         this.frontendProps.angularModules = angularModules;
         done();
@@ -64,7 +69,7 @@ module.exports = function(generator) {
       this.frontendProps
     );
     this.fs.copy(
-      this.templatePath('main.html'),
+      this.frontendProps.mainHtmlPath,
       this.destinationPath('static/app/main/main.html')
     );
     fs.mkdirSync(this.destinationPath('static'));
