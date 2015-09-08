@@ -2,7 +2,6 @@
 var yeoman = require('yeoman-generator');
 
 module.exports = yeoman.generators.Base.extend({
-
   prompting: function() {
     var done = this.async();
     this.prompt({
@@ -17,7 +16,6 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: function () {
     var repositoryPath = this.destinationPath('migrate');
-    this.spawnCommand('migrate', ['script', this.migrationName, repositoryPath])
+    this.spawnCommand('migrate', ['script', this.migrationName, repositoryPath]);
   }
-
 });

@@ -22,30 +22,31 @@ module.exports = function(generator) {
         this.frontendProps = answers;
         this.frontendProps.projectName = this.props.projectName;
         this.frontendProps.angularAppName = utils.toCamelCase(this.props.projectName) + 'App';
+        this.config.set('angularAppName', this.frontendProps.angularAppName);
         var angularModules = [
           "'ui.router'"
         ];
         switch (answers.cssFramework) {
           case 'Bootstrap':
-            this.frontendProps.mainHtmlPath = this.templatePath('_main.bootstrap.html');
+            this.frontendProps.homeHtmlPath = this.templatePath('_home.bootstrap.html');
             angularModules = angularModules.concat([
               "'ui.bootstrap'"
             ]);
             break;
           case 'Foundation':
-            this.frontendProps.mainHtmlPath = this.templatePath('_main.foundation.html');
+            this.frontendProps.homeHtmlPath = this.templatePath('_home.foundation.html');
             angularModules = angularModules.concat([
               "'mm.foundation'"
             ]);
             break;
           case 'Angular Material':
-            this.frontendProps.mainHtmlPath = this.templatePath('_main.material.html');
+            this.frontendProps.homeHtmlPath = this.templatePath('_home.material.html');
             angularModules = angularModules.concat([
               "'ngMaterial'"
             ]);
             break;
           default:
-            this.frontendProps.mainHtmlPath = this.templatePath('_main.html');
+            this.frontendProps.homeHtmlPath = this.templatePath('_home.html');
         }
         this.frontendProps.angularModules = angularModules;
         done();
@@ -63,18 +64,24 @@ module.exports = function(generator) {
       this.destinationPath('static/app/app.js'),
       this.frontendProps
     );
-    this.fs.copyTpl(
-      this.templatePath('_main.js'),
-      this.destinationPath('static/app/main/main.js'),
-      this.frontendProps
-    );
     this.fs.copy(
-      this.frontendProps.mainHtmlPath,
-      this.destinationPath('static/app/main/main.html')
+      this.frontendProps.homeHtmlPath,
+      this.destinationPath('static/partials/home.html')
     );
     fs.mkdirSync(this.destinationPath('static'));
+    fs.mkdirSync(this.destinationPath('static/app'));
     fs.mkdirSync(this.destinationPath('static/images'));
-    fs.mkdirSync(this.destinationPath('static/styles'));
+    this.composeWith('angular-flask:page', {options: {
+      pageName: 'common'
+    }});
+    this.composeWith('angular-flask:page', {options: {
+      pageName: 'home'
+    }});
+    this.composeWith('angular-flask:component', {options: {
+      componentType: 'controller',
+      componentName: 'home',
+      pageName: 'home'
+    }});
 
     // Requirements & package files
     this.fs.copy(

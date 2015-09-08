@@ -15,6 +15,7 @@ var AFSBase = {
             default: 'project'
         }], function(answers) {
           this.props = answers;
+          this.config.set('projectName', this.props.projectName);
           done();
       }.bind(this));
     }
@@ -46,4 +47,3 @@ require('./setup-backend')(AFSBase);
 require('./setup-frontend')(AFSBase);
 
 module.exports = yeoman.generators.Base.extend(AFSBase);
-

@@ -2,7 +2,6 @@
 var yeoman = require('yeoman-generator');
 
 module.exports = yeoman.generators.Base.extend({
-
   prompting: function() {
     var endpointPrompts = [{
         type: 'input',
@@ -58,6 +57,5 @@ module.exports = yeoman.generators.Base.extend({
       }
     );
   }
-
 });
 

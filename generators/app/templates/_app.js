@@ -7,10 +7,10 @@ angular
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('main', {
+      .state('home', {
         url: '/',
-        templateUrl: '/static/app/main/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: '/static/partials/home.html',
+        controller: 'HomeCtrl',
+        controllerAs: 'home'
       });
   });

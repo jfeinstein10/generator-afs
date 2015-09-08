@@ -5,6 +5,11 @@ var toCamelCase = function(string) {
     });
 };
 
+var capitalize = function(string) {
+    return string[0].toUpperCase() + string.substring(1);
+};
+
 module.exports = {
-    toCamelCase: toCamelCase
+    toCamelCase: toCamelCase,
+    capitalize: capitalize
 };
