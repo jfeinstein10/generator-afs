@@ -3,17 +3,25 @@
 module.exports = function(generator) {
 
   generator.writing.backend = function() {
+    // Depenedencies
+    this.fs.copyTpl(
+      this.templatePath('_requirements.txt'),
+      this.destinationPath('requirements.txt'),
+      this
+    );
+
     this.fs.copy(
       this.templatePath('__init__.py'),
       this.destinationPath('__init__.py')
     );
-    this.fs.copy(
-      this.templatePath('app.py'),
-      this.destinationPath('app.py')
+    this.fs.copyTpl(
+      this.templatePath('_app.py'),
+      this.destinationPath('app.py'),
+      this
     );
     this.fs.copy(
-      this.templatePath('main.py'),
-      this.destinationPath('main.py')
+      this.templatePath('serve.py'),
+      this.destinationPath('serve.py')
     );
     this.fs.copy(
       this.templatePath('environment.py'),

@@ -1,21 +1,23 @@
-third-party-css:
+<% if (cssFramework !== 'None') { %>third-party-css:
   filters: cssrewrite, cssmin
   output: cache/%(version)s-third-party.css
-  contents:
-    - bower_components/bootswatch-dist/css/bootstrap.min.css
-<% if (styling !== 'None') { %>
-app-css:
+  contents: <% if (cssFramework === 'Bootstrap') { %>
+    - bower_components/bootstrap/dist/css/bootstrap.min.css <% } else if (cssFramework === 'Foundation') { %>
+    - bower_components/foundation/css/normalize.min.css
+    - bower_components/foundation/css/foundation.min.css <% } else if (cssFramework === 'Angular Material') { %>
+    - bower_components/angular-material/angular-material.min.css <% } %><% } %>
+
+<% if (styling !== 'None') { %>app-css:
   filters: <%= styling %>, cssrewrite, cssmin
   output: cache/%(version)s-app.css
   contents:
-    - styles/**/*.<%= styling %>
-<% } else { %>
+    - styles/**/*.<%= styling %> <% } else { %>
 app-css:
   filters: cssrewrite, cssmin
   output: cache/%(version)s-app.css
   contents:
-    - styles/**/*.css
-<% } %>
+    - styles/**/*.css <% } %>
+
 all-css:
   filters: cssrewrite, cssmin
   output: cache/%(version)s-all.css
@@ -23,51 +25,35 @@ all-css:
     - third-party-css
     - app-css
 
-third-party-js-debug:
-  output: cache/%(version)s-third-party-debug.js
-  contents:
-    - bower_components/jquery/dist/jquery.js
-    - bower_components/angular/angular.js
-    - bower_components/highcharts-release/highcharts.src.js
-    - bower_components/highcharts-release/highcharts-more.src.js
-    - bower_components/angular-ui-router/release/angular-ui-router.js
-    - bower_components/underscore/underscore.js
-    - bower_components/angular-bootstrap/ui-bootstrap-tpls.js
-    - bower_components/bootswatch-dist/js/bootstrap.js
-
-third-party-js-prod:
-  output: cache/%(version)s-third-party-prod.js
+third-party-js:
+  output: cache/%(version)s-third-party.js
   contents:
     - bower_components/jquery/dist/jquery.min.js
+    - bower_components/underscore/underscore-min.js
     - bower_components/angular/angular.min.js
-    - bower_components/highcharts-release/highcharts.src.min.js
-    - bower_components/highcharts-release/highcharts-more.src.min.js
-    - bower_components/angular-ui-router/release/angular-ui-router.min.js
-    - bower_components/underscore/underscore.js
-    - bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js
-    - bower_components/bootswatch-dist/js/bootstrap.min.js
+    - bower_components/angular-ui-router/release/angular-ui-router.min.js <% if (cssFramework === 'Bootstrap') { %>
+    - bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js <% } else if (cssFramework === 'Foundation') { %>
+    - bower_components/angular-foundation/mm-foundation-tpls.min.js <% } else if (cssFramework === 'Angular Material') { %>
+    - bower_components/angular-aria/angular-aria.min.js
+    - bower_components/angular-animate/angular-animate.min.js
+    - bower_components/angular-material/angular-material.min.js <% } %>
 
 app-js:
   output: cache/%(version)s-app.js
   contents:
-    - js/**/*.js
+    - app/app.js
+    - app/*/*.js
+    - app/*/*/*.js
 
 app-templates:
   output: cache/%(version)s-app-templates.js
   contents:
     - views/**/*.html
 
-all-js-debug:
-  output: cache/%(version)s-all-debug.js
+all-js:
+  output: cache/%(version)s-all.js
   contents:
-    - third-party-js-debug
-    - app-js
-    - app-templates
-
-all-js-prod:
-  output: cache/%(version)s-all-prod.js
-  contents:
-    - third-party-js-prod
+    - third-party-js
     - app-js
     - app-templates
 

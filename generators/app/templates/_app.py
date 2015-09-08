@@ -11,6 +11,15 @@ assets.auto_build = True
 assets.from_yaml(os.path.join(app.static_folder, 'bundles.yaml'))
 assets.config['STATIC_FOLDER'] = app.static_folder
 assets.config['STATIC_URL_PATH'] = app.static_url_path
+app.secret_key = 'REPLACE THIS AND KEEP IT SECRET'
+
+@app.errorhandler(404)
+def not_found(error):
+    return '404 not found'
+
+@app.errorhandler(500)
+def internal_error(error):
+    return '500 internal error'
 
 @app.route('/static/<path:path>', methods=['GET'])
 def static_files(path):

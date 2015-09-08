@@ -1,6 +1,20 @@
 {
-  "name": "package",
+  "name": "<%= projectName %>",
   "version": "0.0.0",
-  "dependencies": {}
+  "ignore": [
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.3",
+    "angular": "~1.4.5",
+    "angular-ui-router": "~0.2.15"<% if (cssFramework === 'Bootstrap') { %>,
+    "bootstrap": "~3.3.5",
+    "angular-bootstrap": "~0.13.4"<% } else if (cssFramework === 'Foundation') { %>,
+    "foundation": "~5.5.2",
+    "angular-foundation": "~0.6.0"<% } else if (cssFramework === 'Angular Material') { %>,
+    "angular-material": "~0.10.1"<% } %>
+  }
 }
 

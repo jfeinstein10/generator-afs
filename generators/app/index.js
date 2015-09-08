@@ -1,7 +1,8 @@
 'use strict';
+var fs = require('fs');
+var ejs = require('ejs');
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
-var yosay = require('yosay');
+var utils = require('../utils')
 
 var AFSBase = {
   prompting: {
@@ -18,17 +19,31 @@ var AFSBase = {
       }.bind(this));
     }
   },
-  writing: {},
+  writing: {
+    all: function() {
+      this.fs.copyTpl(
+        this.templatePath('_setup.sh'),
+        this.destinationPath('setup.sh'),
+        this.props
+      );
+    }
+  },
   install: {
     all: function() {
-      this.bowerInstall();
+      var done = this.async();
+      this.fs.commit([], function() {
+        fs.chmodSync(this.destinationPath('setup.sh'), '755');
+        this.spawnCommand('./setup.sh', [], {
+          cwd: this.destinationPath('')
+        });  
+      }.bind(this));
     }
   }
 };
 
 require('./setup-config')(AFSBase);
 require('./setup-backend')(AFSBase);
-require('./setup-database')(AFSBase);
 require('./setup-frontend')(AFSBase);
 
 module.exports = yeoman.generators.Base.extend(AFSBase);
+

@@ -1,5 +1,8 @@
 flask
 flask-login
 Flask-Assets
+PyYAML
+webassets
+cssmin
 sqlalchemy
 sqlalchemy-migrate
