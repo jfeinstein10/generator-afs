@@ -1,8 +1,9 @@
-flask
-flask-login
-Flask-Assets
-PyYAML
-webassets
-cssmin
-sqlalchemy
-sqlalchemy-migrate
+cssmin==0.2.0
+Flask==0.10.1
+Flask-Assets==0.11
+Flask-Login==0.2.11
+glob2==0.4.1
+PyYAML==3.11
+SQLAlchemy==1.0.8
+sqlalchemy-migrate==0.10.0
+webassets==0.11.1

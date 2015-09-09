@@ -35,7 +35,7 @@ var AFSBase = {
         fs.chmodSync(this.destinationPath('setup.sh'), '755');
         this.spawnCommand('./setup.sh', [], {
           cwd: this.destinationPath('')
-        });  
+        });
       }.bind(this));
     }
   }

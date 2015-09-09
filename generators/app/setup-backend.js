@@ -3,7 +3,6 @@
 module.exports = function(generator) {
 
   generator.writing.backend = function() {
-    // Depenedencies
     this.fs.copyTpl(
       this.templatePath('_requirements.txt'),
       this.destinationPath('requirements.txt'),

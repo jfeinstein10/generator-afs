@@ -13,12 +13,16 @@
   output: cache/%(version)s-app.css
   contents:
     - styles/**/*.<%= styling %>
-    - app/**/*.<%= styling %> <% } else { %>app-css:
+    - app/*.<%= styling %>
+    - app/*/*.<%= styling %>
+    - app/*/*/*.<%= styling %> <% } else { %>app-css:
   filters: cssrewrite, cssmin
   output: cache/%(version)s-app.css
   contents:
     - styles/**/*.css
-    - app/**/*.css <% } %>
+    - app/*.css
+    - app/*/*.css
+    - app/*/*/*.css <% } %>
 
 all-css:
   filters: cssrewrite, cssmin
@@ -44,18 +48,12 @@ app-js:
   output: cache/%(version)s-app.js
   contents:
     - app/app.js
+    - app/[!app]*.js
     - app/*/*.js
     - app/*/*/*.js
-
-app-templates:
-  output: cache/%(version)s-app-templates.js
-  contents:
-    - views/**/*.html
 
 all-js:
   output: cache/%(version)s-all.js
   contents:
     - third-party-js
     - app-js
-    - app-templates
-
