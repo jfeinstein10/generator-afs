@@ -48,9 +48,9 @@ app-js:
   output: cache/%(version)s-app.js
   contents:
     - app/app.js
-    - app/[!app]*.js
-    - app/*/*.js
-    - app/*/*/*.js
+    - app/[!app]*[!.spec].js
+    - app/*/*[!.spec].js
+    - app/*/*/*[!.spec].js
 
 all-js:
   output: cache/%(version)s-all.js
