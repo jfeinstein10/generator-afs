@@ -1,6 +1,5 @@
 'use strict';
 var fs = require('fs');
-var ejs = require('ejs');
 var yeoman = require('yeoman-generator');
 var utils = require('../utils')
 

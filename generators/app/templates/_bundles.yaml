@@ -12,12 +12,13 @@
   filters: <%= styling %>, cssrewrite, cssmin
   output: cache/%(version)s-app.css
   contents:
-    - styles/**/*.<%= styling %> <% } else { %>
-app-css:
+    - styles/**/*.<%= styling %>
+    - app/**/*.<%= styling %> <% } else { %>app-css:
   filters: cssrewrite, cssmin
   output: cache/%(version)s-app.css
   contents:
-    - styles/**/*.css <% } %>
+    - styles/**/*.css
+    - app/**/*.css <% } %>
 
 all-css:
   filters: cssrewrite, cssmin

@@ -45,8 +45,6 @@ module.exports = function(generator) {
               "'ngMaterial'"
             ]);
             break;
-          default:
-            this.frontendProps.homeHtmlPath = this.templatePath('_home.html');
         }
         this.frontendProps.angularModules = angularModules;
         done();
@@ -64,13 +62,11 @@ module.exports = function(generator) {
       this.destinationPath('static/app/app.js'),
       this.frontendProps
     );
-    this.fs.copy(
-      this.frontendProps.homeHtmlPath,
-      this.destinationPath('static/partials/home.html')
-    );
     fs.mkdirSync(this.destinationPath('static'));
     fs.mkdirSync(this.destinationPath('static/app'));
     fs.mkdirSync(this.destinationPath('static/images'));
+    fs.mkdirSync(this.destinationPath('static/styles'));
+    fs.mkdirSync(this.destinationPath('static/partials'));
     this.composeWith('angular-flask:page', {options: {
       pageName: 'common'
     }});
@@ -80,8 +76,17 @@ module.exports = function(generator) {
     this.composeWith('angular-flask:component', {options: {
       componentType: 'controller',
       componentName: 'home',
-      pageName: 'home'
+      pageName: 'home',
+      hasRoute: true,
+      route: '/'
     }});
+    // Override the default view
+    if (this.frontendProps.homeHtmlPath) {
+      this.fs.copy(
+        this.frontendProps.homeHtmlPath,
+        this.destinationPath('static/partials/home.html')
+      );
+    }
 
     // Requirements & package files
     this.fs.copy(

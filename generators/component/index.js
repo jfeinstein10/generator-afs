@@ -6,8 +6,9 @@ var optionOrPrompt = require('yeoman-option-or-prompt');
 
 module.exports = yeoman.generators.Base.extend({
   _optionOrPrompt: optionOrPrompt,
+  _rewriteFile: utils.rewriteFile,
 
-  prompting: function () {
+  prompting: function() {
     var done = this.async();
     this._optionOrPrompt([{
       name: 'componentType',
@@ -19,6 +20,21 @@ module.exports = yeoman.generators.Base.extend({
       type: 'input',
       message: function(answers) {
         return 'What would you like the name of the ' + answers.componentType + ' to be?';
+      }
+    }, {
+      name: 'hasRoute',
+      type: 'confirm',
+      message: 'Would you like to create a new route for this controller?',
+      default: false,
+      when: function(answers) {
+        return answers.componentType === 'controller';
+      }
+    }, {
+      name: 'route',
+      type: 'input',
+      message: 'What would you like that route to be?',
+      when: function(answers) {
+        return answers.hasRoute;
       }
     }, {
       name: 'pageName',
@@ -37,7 +53,7 @@ module.exports = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  writing: function () {
+  writing: function() {
     var path = 'static/app/' + this.props.pageName + '/' + this.props.componentType + 's/';
     switch (this.props.componentType) {
       case 'controller':
@@ -47,6 +63,22 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(path + this.props.controllerName + '.js'),
           this.props
         );
+        if (this.props.hasRoute) {
+          var partialPath = this.destinationPath('static/partials/' + this.props.componentName + '.html');
+          if (!this.fs.exists(partialPath)) {
+            this.fs.copyTpl(
+              this.templatePath('_controller.html'),
+              partialPath,
+              this.props
+            );
+          }
+          this._rewriteFile(
+            this.destinationPath('static/app/app.js'),
+            '/* angular-flask route needle */',
+            this.templatePath('_route.js'),
+            this.props
+          );
+        }
         break;
       case 'directive':
         this.props.directiveName = this.props.componentName;

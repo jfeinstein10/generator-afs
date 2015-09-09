@@ -2,15 +2,12 @@
 
 angular
   .module('<%= angularAppName %>', [
-    <%= angularModules.join(',\n    ') + '\n  ' %>])
+    <%= angularModules.join(',\n    ') + ',' %>
+    /* angular-flask module needle */
+  ])
   .config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider
-      .state('home', {
-        url: '/',
-        templateUrl: '/static/partials/home.html',
-        controller: 'HomeCtrl',
-        controllerAs: 'home'
-      });
+      /* angular-flask route needle */;
   });
