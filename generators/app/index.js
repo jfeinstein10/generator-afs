@@ -32,7 +32,7 @@ var AFSBase = {
         if (os.platform() === 'win32') {
           shell.exec(virtualenvPath + '/Scripts/activate');
         } else {
-          shell.exec('. ' + virtualenvPath + '/bin/activate');
+          shell.exec('source ' + virtualenvPath + '/bin/activate');
         }
         shell.exec('pip install -r ' + this.destinationPath('requirements.txt'));
         shell.exec('migrate create ' + this.destinationPath('migrate') + ' ' + this.props.projectName);

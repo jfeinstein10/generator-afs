@@ -1,5 +1,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
+var utils = require('../utils');
 
 module.exports = yeoman.generators.Base.extend({
   prompting: function() {
@@ -22,7 +23,7 @@ module.exports = yeoman.generators.Base.extend({
         message: 'Do you want to define another endpoint for this controller?',
         default: false
     }];
-    var controllerName = [{
+    var controllerNamePrompt = [{
         type: 'input',
         name: 'controllerName',
         message: 'What do you want to name your controller?'
@@ -32,11 +33,11 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
     var performPrompt = function(includeControllerName) {
       var prompts = (includeControllerName ? 
-        controllerName.concat(endpointPrompts) : endpointPrompts);
+        controllerNamePrompt.concat(endpointPrompts) : endpointPrompts);
       this.prompt(prompts, function(answers) {
           this.endpoints.push(answers);
           if (answers.controllerName) {
-            this.controllerName = answers.controllerName;
+            this.controllerName = utils.underscorize(answers.controllerName);
           }
           if (answers.another) {
             performPrompt(false);
@@ -52,7 +53,7 @@ module.exports = yeoman.generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('controller.py'),
       this.destinationPath('controllers/' + this.controllerName + '.py'), {
-        controllerName: this.controllerName,
+        controllerName: utils.capitalize(utils.toCamelCase(this.controllerName)),
         endpoints: this.endpoints
       }
     );
