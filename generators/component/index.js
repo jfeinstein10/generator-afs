@@ -63,6 +63,11 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(path + this.props.controllerName + '.js'),
           this.props
         );
+        this.fs.copyTpl(
+          this.templatePath('spec/_controller.js'),
+          this.destinationPath(path + this.props.controllerName + '.spec.js'),
+          this.props
+        );
         if (this.props.hasRoute) {
           var partialPath = this.destinationPath('static/partials/' + this.props.componentName + '.html');
           if (!this.fs.exists(partialPath)) {
@@ -82,9 +87,15 @@ module.exports = yeoman.generators.Base.extend({
         break;
       case 'directive':
         this.props.directiveName = this.props.componentName;
+        this.props.directiveTag = utils.dasherize(this.props.directiveName);
         this.fs.copyTpl(
           this.templatePath('_directive.js'),
           this.destinationPath(path + this.props.directiveName + '.js'),
+          this.props
+        );
+        this.fs.copyTpl(
+          this.templatePath('spec/_directive.js'),
+          this.destinationPath(path + this.props.directiveName + '.spec.js'),
           this.props
         );
         this.fs.copyTpl(
@@ -103,6 +114,11 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copyTpl(
           this.templatePath('_service.js'),
           this.destinationPath(path + this.props.serviceName + '.js'),
+          this.props
+        );
+        this.fs.copyTpl(
+          this.templatePath('spec/_service.js'),
+          this.destinationPath(path + this.props.serviceName + '.spec.js'),
           this.props
         );
         break;

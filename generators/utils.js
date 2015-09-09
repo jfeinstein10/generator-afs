@@ -1,9 +1,21 @@
 'use strict';
 
 var toCamelCase = function(string) {
-  return string.replace(/^([A-Z])|\s(\w)/g, function(match, p1, p2, offset) {
+  return string.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset) {
     if (p2) return p2.toUpperCase();
     return p1.toLowerCase();        
+  });
+};
+
+var underscorize = function(string) {
+  return string.replace(/[A-Z]/g, function(char, index) {
+      return (index !== 0 ? '_' : '') + char.toLowerCase();
+  });
+};
+
+var dasherize = function(string) {
+  return string.replace(/[A-Z]/g, function(char, index) {
+      return (index !== 0 ? '-' : '') + char.toLowerCase();
   });
 };
 
@@ -48,6 +60,8 @@ var rewriteFile = function(filePath, needle, templatePath, props) {
 
 module.exports = {
   toCamelCase: toCamelCase,
+  underscorize: underscorize,
+  dasherize: dasherize,
   capitalize: capitalize,
   insertBefore: insertBefore,
   rewriteFile: rewriteFile

@@ -1,7 +1,9 @@
 'use strict';
+var os = require('os');
 var fs = require('fs');
+var shell = require('shelljs');
 var yeoman = require('yeoman-generator');
-var utils = require('../utils')
+var utils = require('../utils');
 
 var AFSBase = {
   prompting: {
@@ -19,23 +21,22 @@ var AFSBase = {
       }.bind(this));
     }
   },
-  writing: {
-    all: function() {
-      this.fs.copyTpl(
-        this.templatePath('_setup.sh'),
-        this.destinationPath('setup.sh'),
-        this.props
-      );
-    }
-  },
+  writing: {},
   install: {
     all: function() {
       var done = this.async();
       this.fs.commit([], function() {
-        fs.chmodSync(this.destinationPath('setup.sh'), '755');
-        this.spawnCommand('./setup.sh', [], {
-          cwd: this.destinationPath('')
-        });
+        var virtualenvPath = this.destinationPath('venv');
+        shell.exec('bower install');
+        shell.exec('virtualenv ' + virtualenvPath);
+        if (os.platform() === 'win32') {
+          shell.exec(virtualenvPath + '/Scripts/activate');
+        } else {
+          shell.exec('. ' + virtualenvPath + '/bin/activate');
+        }
+        shell.exec('pip install -r ' + this.destinationPath('requirements.txt'));
+        shell.exec('migrate create ' + this.destinationPath('migrate') + ' ' + this.props.projectName);
+        done();
       }.bind(this));
     }
   }
