@@ -67,4 +67,4 @@ You'll see the following prompts with the following options:
  * What would you like the to name the [controller]?
  * Would you like to create a new route for this controller? (y/N) (only for controllers)
  * What would you like that route to be? (only for controllers)
- * What page does the [controller] belong to?
+ * What page would you like the [controller] to belong to?

@@ -35,7 +35,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
       name: 'pageName',
       type: 'input',
       message: function(answers) {
-        return 'What page does the ' + answers.componentType + ' belong to?';
+        return 'What page would you like the ' + answers.componentType + ' to belong to?';
       }
     }], function(answers) {
       this.props = answers;
