@@ -21,7 +21,6 @@ You'll see the following prompts with the following options:
  * What would you like to name your project?
  * Which (if any) CSS pre-processor would you like to use? (None, less, scss, or sass)
  * Which (if any) CSS Framework would you like to use? (None, Bootstrap, Foundation, Angular Material)
-```
 
 After creating an app run the following commands in the same directory:
 ```bash
