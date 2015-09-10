@@ -1,6 +1,4 @@
 'use strict';
-var fs = require('fs');
-var utils = require('../utils')
 
 module.exports = function(generator) {
 
@@ -21,7 +19,7 @@ module.exports = function(generator) {
       }], function(answers) {
         this.frontendProps = answers;
         this.frontendProps.projectName = this.props.projectName;
-        this.frontendProps.angularAppName = utils.toCamelCase(this.props.projectName) + 'App';
+        this.frontendProps.angularAppName = this._s.camelize(this.props.projectName) + 'App';
         this.config.set('angularAppName', this.frontendProps.angularAppName);
         var angularModules = [
           "'ui.router'"
@@ -62,11 +60,11 @@ module.exports = function(generator) {
       this.destinationPath('static/app/app.js'),
       this.frontendProps
     );
-    fs.mkdirSync(this.destinationPath('static'));
-    fs.mkdirSync(this.destinationPath('static/app'));
-    fs.mkdirSync(this.destinationPath('static/images'));
-    fs.mkdirSync(this.destinationPath('static/styles'));
-    fs.mkdirSync(this.destinationPath('static/partials'));
+    this._nativeFs.mkdirSync(this.destinationPath('static'));
+    this._nativeFs.mkdirSync(this.destinationPath('static/app'));
+    this._nativeFs.mkdirSync(this.destinationPath('static/images'));
+    this._nativeFs.mkdirSync(this.destinationPath('static/styles'));
+    this._nativeFs.mkdirSync(this.destinationPath('static/partials'));
     this.composeWith('angular-flask:page', {options: {
       pageName: 'common'
     }});

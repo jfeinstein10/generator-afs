@@ -1,17 +1,14 @@
 'use strict';
 var yeoman = require('yeoman-generator');
-var fs = require('fs');
-var optionOrPrompt = require('yeoman-option-or-prompt');
+var utils = require('../utils');
 
-module.exports = yeoman.generators.Base.extend({
-  _optionOrPrompt: optionOrPrompt,
-
+module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
   prompting: function () {
     var done = this.async();
     this._optionOrPrompt([{
       name: 'pageName',
       type: 'input',
-      message: 'What\'s the page name?',
+      message: 'What would you like to name the page?',
       validate: function(answer) {
         return answer.indexOf('/') < 0;
       }
@@ -24,9 +21,9 @@ module.exports = yeoman.generators.Base.extend({
   writing: function () {
     // TODO (jf): add to the routes JSON
     var path = 'static/app/' + this.props.pageName;
-    fs.mkdirSync(this.destinationPath(path));
-    fs.mkdirSync(this.destinationPath(path) + '/controllers');
-    fs.mkdirSync(this.destinationPath(path) + '/directives');
-    fs.mkdirSync(this.destinationPath(path) + '/services');
+    this._nativeFs.mkdirSync(this.destinationPath(path));
+    this._nativeFs.mkdirSync(this.destinationPath(path) + '/controllers');
+    this._nativeFs.mkdirSync(this.destinationPath(path) + '/directives');
+    this._nativeFs.mkdirSync(this.destinationPath(path) + '/services');
   }
-});
+}));

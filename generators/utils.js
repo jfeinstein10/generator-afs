@@ -1,27 +1,7 @@
 'use strict';
-
-var toCamelCase = function(string) {
-  return string.replace(/^([A-Z])|[\s-_](\w)/g, function(match, p1, p2, offset) {
-    if (p2) return p2.toUpperCase();
-    return p1.toLowerCase();        
-  });
-};
-
-var underscorize = function(string) {
-  return string.replace(/[A-Z]/g, function(char, index) {
-      return (index !== 0 ? '_' : '') + char.toLowerCase();
-  });
-};
-
-var dasherize = function(string) {
-  return string.replace(/[A-Z]/g, function(char, index) {
-      return (index !== 0 ? '-' : '') + char.toLowerCase();
-  });
-};
-
-var capitalize = function(string) {
-  return string[0].toUpperCase() + string.substring(1);
-};
+var optionOrPrompt = require('yeoman-option-or-prompt');
+var fs = require('fs');
+var s = require('underscore.string');
 
 var insertBefore = function(haystack, needle, linesToInsert) {
   var lines = haystack.split('\n');
@@ -58,11 +38,22 @@ var rewriteFile = function(filePath, needle, templatePath, props) {
   this.fs.write(filePath, newAppContent);
 };
 
+var getGeneratorBase = function(base) {
+  base._s = s;
+  base._nativeFs = fs;
+  base._optionOrPrompt = optionOrPrompt;
+  base._rewriteFile = rewriteFile;
+  base._copyTemplate = function(templatePath, destinationPath, props) {
+    this.fs.copyTpl(
+      this.templatePath(templatePath),
+      this.destinationPath(destinationPath),
+      props
+      );
+  };
+  return base;
+};
+
 module.exports = {
-  toCamelCase: toCamelCase,
-  underscorize: underscorize,
-  dasherize: dasherize,
-  capitalize: capitalize,
-  insertBefore: insertBefore,
-  rewriteFile: rewriteFile
+  rewriteFile: rewriteFile,
+  getGeneratorBase: getGeneratorBase
 };

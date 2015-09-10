@@ -4,9 +4,9 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('AngularFlask:generators/service', function () {
+describe('angular-flask:generators/endpoints', function () {
   before(function (done) {
-    helpers.run(path.join(__dirname, '../generators/service'))
+    helpers.run(path.join(__dirname, '../generators/endpoints'))
       .withArguments('name')
       .withOptions({ skipInstall: true, force: true })
       .on('end', done);
