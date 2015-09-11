@@ -5,7 +5,7 @@
 ## Setting Up
 
 Make sure you have the following installed:
- - [`node`](https://nodejs.org/en/download/), `npm` (usually comes with `node`), and `yeoman` (`npm install -g yo`)
+ - [`node`](https://nodejs.org/en/download/), `npm` (usually comes with `node`), `bower` (`npm install -g bower`), and `yeoman` (`npm install -g yo`)
  - `python` ([for OS X](http://docs.python-guide.org/en/latest/starting/install/osx/) or [Windows](http://docs.python-guide.org/en/latest/starting/install/win/)), [`pip`](https://pip.pypa.io/en/latest/installing.html), and [`virtualenv`](https://virtualenv.pypa.io/en/latest/installation.html)
 
 To install generator-afs from npm, run:
