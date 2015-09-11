@@ -41,7 +41,7 @@ $ python serve.py               # And finally this starts the server
 
 Some useful things to know about your new app
  - You can edit your app configuration (debug mode, database URL, etc.) in `settings.cfg`
- - You can manage your database and migrations via [sqlalchemy-migrate](https://sqlalchemy-migrate.readthedocs.org/en/latest/) with `python migrate.py`
+ - You can manage your database and migrations via [sqlalchemy-migrate](https://sqlalchemy-migrate.readthedocs.org/en/latest/) with `python manage.py`
 
 ## Scaffold All the Things!
 Then you can scaffold other parts of your app with the following subgenerators!
