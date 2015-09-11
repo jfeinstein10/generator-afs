@@ -19,15 +19,17 @@ yo afs
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your project?
+ * Please supply a secret key for the app
+ * What database URL would you like the server to connect to?
  * Which (if any) CSS pre-processor would you like to use? (None, less, scss, or sass)
  * Which (if any) CSS Framework would you like to use? (None, Bootstrap, Foundation, Angular Material)
 
 After creating an app run the following commands in the same directory:
 ```bash
-$ virtualenv venv                           # This creates a virtual environment so we can isolate the requirements of this app from the rest of your computer    
-$ source venv/bin/activate                  # This activates the virtual environment (or venv\Scripts\activate for Windows users)
-$ pip install -r requirements.txt           # This installs the app's Python dependencies within the virtual environment
-$ migrate create migrate <your app name>    # This sets up database versioning (check out the sqlalchemy migration docs)
+$ virtualenv venv                               # This creates a virtual environment so we can isolate the requirements of this app from the rest of your computer
+$ source venv/bin/activate                      # This activates the virtual environment (or venv\Scripts\activate for Windows users)
+$ pip install -r requirements.txt               # This installs the app's Python dependencies within the virtual environment
+$ migrate create models/migrate <your app name> # This sets up database versioning (check out the sqlalchemy migration docs)
 ```
 
 And you can finally run the app with
@@ -35,6 +37,10 @@ And you can finally run the app with
 $ source venv/bin/activate      # Remember to stick to your virutal environment!
 $ python serve.py               # And finally this starts the server
 ```
+
+Some useful things to know about your new app
+ - You can edit your app configuration (debug mode, database URL, etc.) in `settings.cfg`
+ - You can manage your database and migrations via [sqlalchemy-migrate](https://sqlalchemy-migrate.readthedocs.org/en/latest/) with `python migrate.py`
 
 ## Scaffold All the Things!
 Then you can scaffold other parts of your app with the following subgenerators!
@@ -45,7 +51,7 @@ yo afs:endpoints
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your controller?
- * What URL would you like this endpoint to have?
+ * What URL would you like this endpoint to have? (e.g. /api/search/\<search_term\>)
  * What methods would you like this endpoint to accept? (GET, POST, PUT, and DELETE)
  * What would you like to name the Python function for this endpoint?
  * Would you like to define another endpoint for this controller? (y/N)
@@ -65,5 +71,5 @@ You'll see the following prompts with the following options:
  * What type of component would you like to create? (controller, directive, or service)
  * What would you like the to name the [controller]?
  * Would you like to create a new route for this controller? (y/N) (only for controllers)
- * What would you like that route to be? (only for controllers)
+ * What would you like that route to be? (e.g. /search/:search_term) (only for controllers)
  * What page would you like the [controller] to belong to?

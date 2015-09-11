@@ -27,7 +27,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
     }, {
       name: 'route',
       type: 'input',
-      message: 'What would you like that route to be?',
+      message: 'What would you like that route to be? (e.g. /search/:search_term)',
       when: function(answers) {
         return answers.hasRoute;
       }
@@ -58,29 +58,17 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
     switch (this.props.componentType) {
       case 'controller':
         this.props.controllerName = this._s.capitalize(this.props.componentName) + 'Ctrl';
-        this.fs.copyTpl(
-          this.templatePath('_controller.js'),
-          this.destinationPath(path + this.props.controllerName + '.js'),
-          this.props
-        );
-        this.fs.copyTpl(
-          this.templatePath('spec/_controller.js'),
-          this.destinationPath(path + this.props.controllerName + '.spec.js'),
-          this.props
-        );
+        this._copyTpl('_controller.js', path + this.props.controllerName + '.js', this.props);
+        this._copyTpl('spec/_controller.js', path + this.props.controllerName + '.spec.js', this.props);
         if (this.props.hasRoute) {
-          var partialPath = this.destinationPath('static/partials/' + this.props.componentName + '.html');
-          if (!this.fs.exists(partialPath)) {
-            this.fs.copyTpl(
-              this.templatePath('_controller.html'),
-              partialPath,
-              this.props
-            );
+          var partialPath = 'static/partials/' + this.props.componentName + '.html';
+          if (!this.fs.exists(this.destinationPath(partialPath))) {
+            this._copyTpl('_controller.html', partialPath, this.props);
           }
           this._rewriteFile(
-            this.destinationPath('static/app/app.js'),
+            'static/app/app.js',
             '/* generator-afs route needle */',
-            this.templatePath('_route.js'),
+            '_route.js',
             this.props
           );
         }
@@ -88,39 +76,15 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
       case 'directive':
         this.props.directiveName = this.props.componentName;
         this.props.directiveTag = this._s.dasherize(this.props.directiveName);
-        this.fs.copyTpl(
-          this.templatePath('_directive.js'),
-          this.destinationPath(path + this.props.directiveName + '.js'),
-          this.props
-        );
-        this.fs.copyTpl(
-          this.templatePath('spec/_directive.js'),
-          this.destinationPath(path + this.props.directiveName + '.spec.js'),
-          this.props
-        );
-        this.fs.copyTpl(
-          this.templatePath('_directive.html'),
-          this.destinationPath(path + this.props.directiveName + '.html'),
-          this.props
-        );
-        this.fs.copyTpl(
-          this.templatePath('_directive.css'),
-          this.destinationPath(path + this.props.directiveName + '.css'),
-          this.props
-        );
+        this._copyTpl('_directive.js', path + this.props.directiveName + '.js', this.props);
+        this._copyTpl('spec/_directive.js', path + this.props.directiveName + '.spec.js', this.props);
+        this._copyTpl('_directive.html', path + this.props.directiveName + '.html', this.props);
+        this._copyTpl('_directive.css', path + this.props.directiveName + '.css', this.props);
         break;
       case 'service':
         this.props.serviceName = this._s.capitalize(this.props.componentName.toUpperCase()) + 'Service';
-        this.fs.copyTpl(
-          this.templatePath('_service.js'),
-          this.destinationPath(path + this.props.serviceName + '.js'),
-          this.props
-        );
-        this.fs.copyTpl(
-          this.templatePath('spec/_service.js'),
-          this.destinationPath(path + this.props.serviceName + '.spec.js'),
-          this.props
-        );
+        this._copyTpl('_service.js', path + this.props.serviceName + '.js', this.props);
+        this._copyTpl('spec/_service.js', path + this.props.serviceName + '.spec.js', this.props);
         break;
     }
 

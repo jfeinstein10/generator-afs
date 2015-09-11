@@ -7,7 +7,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
     var endpointPrompts = [{
         type: 'input',
         name: 'url',
-        message: 'What URL would you like this endpoint to have?'
+        message: 'What URL would you like this endpoint to have? (e.g. /api/search/<search_term>)'
       }, {
         type: 'checkbox',
         name: 'methods',
@@ -32,12 +32,12 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
     this.endpoints = [];
     var done = this.async();
     var performPrompt = function(includeControllerName) {
-      var prompts = (includeControllerName ? 
+      var prompts = (includeControllerName ?
         controllerNamePrompt.concat(endpointPrompts) : endpointPrompts);
       this.prompt(prompts, function(answers) {
           this.endpoints.push(answers);
           if (answers.controllerName) {
-            this.controllerName = this._s.underscored(answers.controllerName);
+            this.controllerName = this._s(this.controllerName).camelize().capitalize().value() + 'Controller';
           }
           if (answers.another) {
             performPrompt(false);
@@ -50,12 +50,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
   },
 
   writing: function () {
-    this.fs.copyTpl(
-      this.templatePath('_controller.py'),
-      this.destinationPath('controllers/' + this.controllerName + '.py'), {
-        controllerName: this._s(this.controllerName).camelize().capitalize().value() + 'Controller',
-        endpoints: this.endpoints
-      }
-    );
+    var controllerFilename = this._s.underscored(this.controllerName);
+    this._copyTpl('_controller.py', 'controllers/' + controllerFilename + '.py', this);
   }
 }));

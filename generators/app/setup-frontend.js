@@ -26,19 +26,19 @@ module.exports = function(generator) {
         ];
         switch (answers.cssFramework) {
           case 'Bootstrap':
-            this.frontendProps.homeHtmlPath = this.templatePath('_home.bootstrap.html');
+            this.frontendProps.homeHtmlPath = '_home.bootstrap.html';
             angularModules = angularModules.concat([
               "'ui.bootstrap'"
             ]);
             break;
           case 'Foundation':
-            this.frontendProps.homeHtmlPath = this.templatePath('_home.foundation.html');
+            this.frontendProps.homeHtmlPath = '_home.foundation.html';
             angularModules = angularModules.concat([
               "'mm.foundation'"
             ]);
             break;
           case 'Angular Material':
-            this.frontendProps.homeHtmlPath = this.templatePath('_home.material.html');
+            this.frontendProps.homeHtmlPath = '_home.material.html';
             angularModules = angularModules.concat([
               "'ngMaterial'"
             ]);
@@ -50,16 +50,8 @@ module.exports = function(generator) {
   };
 
   generator.writing.frontend = function() {
-    this.fs.copyTpl(
-      this.templatePath('_index.html'),
-      this.destinationPath('templates/index.html'),
-      this.frontendProps
-    );
-    this.fs.copyTpl(
-      this.templatePath('_app.js'),
-      this.destinationPath('static/app/app.js'),
-      this.frontendProps
-    );
+    this._copyTpl('_index.html', 'templates/index.html', this.frontendProps);
+    this._copyTpl('_app.js', 'static/app/app.js', this.frontendProps);
     this._nativeFs.mkdirSync(this.destinationPath('static'));
     this._nativeFs.mkdirSync(this.destinationPath('static/app'));
     this._nativeFs.mkdirSync(this.destinationPath('static/images'));
@@ -80,27 +72,13 @@ module.exports = function(generator) {
     }});
     // Override the default view
     if (this.frontendProps.homeHtmlPath) {
-      this.fs.copy(
-        this.frontendProps.homeHtmlPath,
-        this.destinationPath('static/partials/home.html')
-      );
+      this._copy(this.frontendProps.homeHtmlPath, 'static/partials/home.html');
     }
 
     // Requirements & package files
-    this.fs.copy(
-      this.templatePath('bowerrc'),
-      this.destinationPath('.bowerrc')
-    );
-    this.fs.copyTpl(
-      this.templatePath('_bower.json'),
-      this.destinationPath('bower.json'),
-      this.frontendProps
-    );
-    this.fs.copyTpl(
-      this.templatePath('_bundles.yaml'),
-      this.destinationPath('static/bundles.yaml'),
-      this.frontendProps
-    );
+    this._copy('bowerrc','.bowerrc');
+    this._copyTpl('_bower.json', 'bower.json', this.frontendProps);
+    this._copyTpl('_bundles.yaml', 'static/bundles.yaml', this.frontendProps);
   };
 
 };

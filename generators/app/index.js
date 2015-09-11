@@ -18,15 +18,20 @@ var AFSBase = utils.getGeneratorBase({
       }.bind(this));
     }
   },
+  configuring: {
+    base: function() {
+      this._copy('editorconfig', '.editorconfig');
+      this._copy('jshintrc', '.jshintrc');
+    }
+  },
   writing: {},
   install: {
-    all: function() {
+    base: function() {
       this.bowerInstall();
     }
   }
 });
 
-require('./setup-config')(AFSBase);
 require('./setup-backend')(AFSBase);
 require('./setup-frontend')(AFSBase);
 

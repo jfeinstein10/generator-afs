@@ -29,31 +29,37 @@ var insertBefore = function(haystack, needle, linesToInsert) {
   return lines.join('\n');
 };
 
-var rewriteFile = function(filePath, needle, templatePath, props) {
-  var appContent = this.fs.read(filePath);
-  var tempPath = this.destinationPath('.temp');
-  this.fs.copyTpl(templatePath, tempPath, props);
-  var newAppContent = insertBefore(appContent, needle, this.fs.read(tempPath));
-  this.fs.delete(tempPath);
-  this.fs.write(filePath, newAppContent);
-};
-
 var getGeneratorBase = function(base) {
   base._s = s;
   base._nativeFs = fs;
   base._optionOrPrompt = optionOrPrompt;
-  base._rewriteFile = rewriteFile;
-  base._copyTemplate = function(templatePath, destinationPath, props) {
+  base._rewriteFile = function(destinationPath, needle, templatePath, props) {
+    var filePath = this.destinationPath(destinationPath);
+    var appContent = this.fs.read(filePath);
+    var tempPath = this.destinationPath('.temp');
+    this._copyTpl(templatePath, '.temp', props);
+    var newAppContent = insertBefore(appContent, needle, this.fs.read(tempPath));
+    this.fs.delete(tempPath);
+    console.log(appContent);
+    console.log(newAppContent);
+    this.fs.write(filePath, newAppContent);
+  };
+  base._copyTpl = function(templatePath, destinationPath, props) {
     this.fs.copyTpl(
       this.templatePath(templatePath),
       this.destinationPath(destinationPath),
       props
-      );
+    );
+  };
+  base._copy = function(templatePath, destinationPath) {
+    this.fs.copy(
+      this.templatePath(templatePath),
+      this.destinationPath(destinationPath)
+    );
   };
   return base;
 };
 
 module.exports = {
-  rewriteFile: rewriteFile,
   getGeneratorBase: getGeneratorBase
 };
