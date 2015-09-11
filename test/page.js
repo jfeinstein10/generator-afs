@@ -4,7 +4,7 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('angular-flask:generators/page', function () {
+describe('afs:generators/page', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators/page'))
       .withArguments('name')

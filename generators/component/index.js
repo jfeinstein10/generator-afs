@@ -49,7 +49,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
     // Create the page if it doesn't exist
     var exists = this._nativeFs.existsSync(this.destinationPath('static/app/' + this.props.pageName));
     if (!exists) {
-      this.composeWith('angular-flask:page', {options: {
+      this.composeWith('afs:page', {options: {
         pageName: this.props.pageName
       }});
     }
@@ -79,7 +79,7 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
           }
           this._rewriteFile(
             this.destinationPath('static/app/app.js'),
-            '/* angular-flask route needle */',
+            '/* generator-afs route needle */',
             this.templatePath('_route.js'),
             this.props
           );
@@ -123,6 +123,6 @@ module.exports = yeoman.generators.Base.extend(utils.getGeneratorBase({
         );
         break;
     }
-    
+
   }
 }));

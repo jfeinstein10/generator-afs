@@ -1,10 +1,10 @@
 {
-  "name": "generator-angular-flask",
+  "name": "generator-afs",
   "version": "0.0.0",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "jfeinstein10/generator-angular-flask",
+  "repository": "jfeinstein10/generator-afs",
   "author": {
     "name": "Jeremy Feinstein",
     "email": "jfeinstein10@gmail.com",

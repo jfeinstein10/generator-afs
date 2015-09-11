@@ -1,6 +1,6 @@
-# generator-angular-flask
+# generator-afs
 
-> a [Yeoman](http://yeoman.io) generator
+> a [Yeoman](http://yeoman.io) Angular-Flask-SQLAlchemy generator
 
 ## Setting Up
 
@@ -8,14 +8,14 @@ Make sure you have the following installed:
  - [`node`](https://nodejs.org/en/download/), `npm` (usually comes with `node`), and `yeoman` (`npm install -g yo`)
  - `python` ([for OS X](http://docs.python-guide.org/en/latest/starting/install/osx/) or [Windows](http://docs.python-guide.org/en/latest/starting/install/win/)), [`pip`](https://pip.pypa.io/en/latest/installing.html), and [`virtualenv`](https://virtualenv.pypa.io/en/latest/installation.html)
 
-To install generator-angular-flask from npm, run:
+To install generator-afs from npm, run:
 ```bash
-npm install -g generator-angular-flask
+npm install -g generator-afs
 ```
 
 ## Creating an App
 ```bash
-yo angular-flask
+yo afs
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your project?
@@ -41,7 +41,7 @@ Then you can scaffold other parts of your app with the following subgenerators!
 
 #### Creating new Flask Endpoints
 ```bash
-yo angular-flask:endpoints
+yo afs:endpoints
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your controller?
@@ -52,14 +52,14 @@ You'll see the following prompts with the following options:
 
 #### Creating a new Angular page (a new collection of Angular components)
 ```bash
-yo angular-flask:page
+yo afs:page
 ```
 You'll see the following prompts with the following options:
  * What would you like to name the page?
 
 #### Creating a new Angular component (controller, directive, or service)
 ```bash
-yo angular-flask:component
+yo afs:component
 ```
 You'll see the following prompts with the following options:
  * What type of component would you like to create? (controller, directive, or service)

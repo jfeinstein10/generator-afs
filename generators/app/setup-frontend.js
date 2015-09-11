@@ -65,13 +65,13 @@ module.exports = function(generator) {
     this._nativeFs.mkdirSync(this.destinationPath('static/images'));
     this._nativeFs.mkdirSync(this.destinationPath('static/styles'));
     this._nativeFs.mkdirSync(this.destinationPath('static/partials'));
-    this.composeWith('angular-flask:page', {options: {
+    this.composeWith('afs:page', {options: {
       pageName: 'common'
     }});
-    this.composeWith('angular-flask:page', {options: {
+    this.composeWith('afs:page', {options: {
       pageName: 'home'
     }});
-    this.composeWith('angular-flask:component', {options: {
+    this.composeWith('afs:component', {options: {
       componentType: 'controller',
       componentName: 'home',
       pageName: 'home',
