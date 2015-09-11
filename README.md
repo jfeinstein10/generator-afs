@@ -8,14 +8,15 @@ Make sure you have the following installed:
  - [`node`](https://nodejs.org/en/download/), `npm` (usually comes with `node`), `bower` (`npm install -g bower`), and `yeoman` (`npm install -g yo`)
  - `python` ([for OS X](http://docs.python-guide.org/en/latest/starting/install/osx/) or [Windows](http://docs.python-guide.org/en/latest/starting/install/win/)), [`pip`](https://pip.pypa.io/en/latest/installing.html), and [`virtualenv`](https://virtualenv.pypa.io/en/latest/installation.html)
 
-To install generator-afs from npm, run:
+To install generator-afs, run:
 ```bash
-npm install -g generator-afs
+$ git clone https://github.com/jfeinstein10/generator-afs.git
+$ npm link
 ```
 
 ## Creating an App
 ```bash
-yo afs
+$ yo afs
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your project?
@@ -47,7 +48,7 @@ Then you can scaffold other parts of your app with the following subgenerators!
 
 #### Creating new Flask Endpoints
 ```bash
-yo afs:endpoints
+$ yo afs:endpoints
 ```
 You'll see the following prompts with the following options:
  * What would you like to name your controller?
@@ -58,14 +59,14 @@ You'll see the following prompts with the following options:
 
 #### Creating a new Angular page (a new collection of Angular components)
 ```bash
-yo afs:page
+$ yo afs:page
 ```
 You'll see the following prompts with the following options:
  * What would you like to name the page?
 
 #### Creating a new Angular component (controller, directive, or service)
 ```bash
-yo afs:component
+$ yo afs:component
 ```
 You'll see the following prompts with the following options:
  * What type of component would you like to create? (controller, directive, or service)
