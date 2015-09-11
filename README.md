@@ -11,6 +11,7 @@ Make sure you have the following installed:
 To install generator-afs, run:
 ```bash
 $ git clone https://github.com/jfeinstein10/generator-afs.git
+$ cd generator-afs
 $ npm link
 ```
 
